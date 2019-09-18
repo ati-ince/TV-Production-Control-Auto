@@ -1,4 +1,5 @@
 # legacy from app1_3 ........
+#legacy from ProductionAnalysis_Report_v2_3
 
 '''
 How to use.......
@@ -6,7 +7,10 @@ How to use.......
 TV üretim excel'ine yeni sheet olarak Emre tablo giriyoruz...
 Yazılım buradan çekerek kullanmakta....
 
-Bu üretim planı için
+Bu şasi planı için
+
+-> buna model_Name.ini oto üretme mekanizması ekliyorum.
+
 
 '''
 
@@ -16,13 +20,21 @@ from pandas import ExcelFile
 
 import xlsxwriter
 import numpy as np
+import codecs
 import re
+#######################3
+import sys
+#print(sys.path)
+#sys.path.append('D:\\#PyProjects\\#modules-libraries-functions\\my-precious-shared')
+#print(sys.path)
 
-_file = 'TV ÜRETİM PROGRAMI_11.09.2019'
+
+
+_file = '../sası_planı_16.09.2019' #bir ust dizinden almakta....
 _filename = _file +'.xlsx'
-_sheet_name = _file
+_sheet_name = 'Sıralama'
 
-_sheet_model = 'unique_09-05'
+_sheet_model = 'unique_list'
 
 _export_report_name = _file + '-' +  _sheet_model + '-' + 'SW_Model_ONAY_KONTROL'
 
@@ -33,19 +45,19 @@ print(df.columns)
 
 ''' df['Kabin Kodu'][i] '''
 # neler kullanacağız.....
-# [2] df['Tarih']   -> üretim tarihi [7]
-# [7] df['Şasi']   -> AF, NX .... şasi listesi....  [7]
-# [8] df['Mamul']  -> 000 'lı kodu....   [8]
-# [12] df['BMS']  -> 56 'lı panel kodu.... [12]
-# [15] df['Ülke']  -> Üretim yapılacak ülke bilgisi.... [15]
-# [16] df['Ön Çerçeve']  -> kabin bilgimiz .... [16]
-# [18] df['  Miktar']  ->  üretim miktarı... [18]
+# [0] df['Tarih']   -> üretim tarihi [0]
+# [4] df['Malzeme110']   -> şasi kodu....  [4]
+# [6] df['BMS']  -> 56 'lı panel kodu.... [6]
+# [9] df['Sasi']   -> şasi kodu AF NX vb....  [9]
+# [10] df['Mamul']   -> Mamul kodu 000'lı  [10]
+# [11] df['  Miktar']  ->  üretim miktarı... [11]
+# [12] df['Ön Çerçeve']  -> kabin bilgimiz (Kabin:Açıklama).... [12]
 # ----------------------------------------------------------------------------------------------
 
 
 # test the numbers ..............................................
-print(len(df['Şasi']),df['Şasi'][0])
-print(len(df[df.columns[7]]),df[df.columns[7]][0])
+print(len(df['Malzeme110']),df['Malzeme110'][0])
+print(len(df[df.columns[4]]),df[df.columns[4]][0])
 print("*"*100);print("*"*100)
 
 # AF'leri ayıklayalım 'AF' yada 'AF:xxxx' gelmekte ; #ref olarak şasi alalım
@@ -108,6 +120,8 @@ for i in range(len(df_sw[df_sw.columns[2]])):
     if _sw_raw == 'nan': _sw_raw = 'Waiting_SW_Relese_Code'
     sw_model_list.append([_mod,_sw_raw])
 
+print('basarılı ..... unique... ')
+
 def sw_model_check(_model , _inlist):
     _out = 'MODEL_NOT_IN_SW_RELEASE'
     index=0
@@ -118,30 +132,38 @@ def sw_model_check(_model , _inlist):
     return _out
 
 # ----------------------------------------------------------------------------------------------
+f = codecs.open('../' + 'Model_Names' +'.ini',"w+", encoding='utf-8')
+# ----------------------------------------------------------------------------------------------
+
+f.write("### Used with "+ _file+" ###\n")
+f.write("[AFMODELNAME]\n")
 
 af_list = []
-for i in range(len(df[df.columns[7]])):
-    _buf_sasi= str(df[df.columns[7]][i]).split(':')[0]
+for i in range(len(df[df.columns[0]])):
+    _buf_sasi= str(df[df.columns[9]][i]).split(':')[0]
     if _buf_sasi == 'AF':
-        _tarih=str(df[df.columns[2]][i])
-        _sasi = str(df[df.columns[7]][i]).split(':')[0]
-        _mamul = str(df[df.columns[8]][i])
-        _bms56panel= str(df[df.columns[12]][i]) #bazıları kodu verilmemiş ????
-        _ulke = str(df[df.columns[15]][i])
-        _kabin = str(df[df.columns[16]][i]).split(':')[0]
-        _miktar = str(df[df.columns[18]][i]).split(':')[0]
+        _tarih=str(df[df.columns[0]][i])
+        _sasi110=str(df[df.columns[4]][i])
+        _bms56panel= str(df[df.columns[6]][i]) #bazıları kodu verilmemiş ???? elle verdik ayarlayacagız...
+        _sasi = str(df[df.columns[9]][i]).split(':')[0]
+        _mamul = str(df[df.columns[10]][i])
+        _miktar = str(df[df.columns[11]][i])
+        _kabin = str(df[df.columns[12]][i]).split(':')[0]
         _model_name = modelname_create(_bms56panel, _kabin)
         _sw_info = str(sw_model_check(_model_name , sw_model_list))
         _onay = 'OK'
         if _sw_info== 'MODEL_NOT_IN_SW_RELEASE': _onay = 'NOK'
-        elif 'Greta' not in _sw_info: _onay='!Waiting_to_ADD!'
-        af_list.append([_tarih,_sasi,_mamul,_bms56panel,_ulke,_kabin,_miktar,_model_name,_sw_info,_onay])
+        elif 'Greta' or 'Clara' in _sw_info: _onay='OK'
+        else: _onay='!Waiting_to_ADD!'
+        af_list.append([_tarih,_sasi,_mamul,_sasi110,_bms56panel,_kabin,_miktar,_model_name,_sw_info,_onay])
+        ## write to check data
+        f.write("%s=%s\n" %(_sasi110[:3],_model_name))
 
 strTarih = 'Üretim Tarih'
 strSasi = 'Şasi'
 strMamul = 'Mamul'
+strSasi110 = 'Şasi110'
 strBMS56panel = 'BMS56panel'
-strUlke = 'Ulke'
 strKabin = 'Kabin'
 strMiktar = 'Miktar'
 strModel_Name = 'Model_Name'
@@ -161,10 +183,13 @@ df1 = pd.DataFrame(af_list)
 writer = pd.ExcelWriter(_export_report_name+'.xlsx', engine='xlsxwriter')
 
 #header
-df1.columns = [strTarih,strSasi,strMamul,strBMS56panel,strUlke,strKabin,strMiktar,strModel_Name,strSW_Info,strUretim_Onayı]
+df1.columns = [strTarih,strSasi,strMamul,strSasi110,strBMS56panel,strKabin,strMiktar,strModel_Name,strSW_Info,strUretim_Onayı]
 
 # Write each dataframe to a different worksheet.
 df1.to_excel(writer, sheet_name='onay_durum')
 
 # Close the Pandas Excel writer and output the Excel file.
 writer.save()
+
+# close the file
+f.close()
