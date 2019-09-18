@@ -51,7 +51,7 @@ print(df.columns)
 # [9] df['Sasi']   -> şasi kodu AF NX vb....  [9]
 # [10] df['Mamul']   -> Mamul kodu 000'lı  [10]
 # [11] df['  Miktar']  ->  üretim miktarı... [11]
-# [12] df['Ön Çerçeve']  -> kabin bilgimiz (Kabin:Açıklama).... [12]
+# [12] df['Ön Çerçeve']  -> kabin bilgimiz (Kabin:Açıklama).... [12]+[12]
 # ----------------------------------------------------------------------------------------------
 
 
@@ -149,13 +149,14 @@ for i in range(len(df[df.columns[0]])):
         _mamul = str(df[df.columns[10]][i])
         _miktar = str(df[df.columns[11]][i])
         _kabin = str(df[df.columns[12]][i]).split(':')[0]
+        _kabininfo = str(df[df.columns[12]][i]).split(':')[-1]#;_kabininfo=_kabininfo.split(" ")[-1]
         _model_name = modelname_create(_bms56panel, _kabin)
         _sw_info = str(sw_model_check(_model_name , sw_model_list))
         _onay = 'OK'
         if _sw_info== 'MODEL_NOT_IN_SW_RELEASE': _onay = 'NOK'
         elif 'Greta' or 'Clara' in _sw_info: _onay='OK'
         else: _onay='!Waiting_to_ADD!'
-        af_list.append([_tarih,_sasi,_mamul,_sasi110,_bms56panel,_kabin,_miktar,_model_name,_sw_info,_onay])
+        af_list.append([_tarih,_sasi,_mamul,_sasi110,_bms56panel,_kabin,_kabininfo,_miktar,_model_name,_sw_info,_onay])
         ## write to check data
         f.write("%s=%s\n" %(_sasi110[:3],_model_name))
 
@@ -165,6 +166,7 @@ strMamul = 'Mamul'
 strSasi110 = 'Şasi110'
 strBMS56panel = 'BMS56panel'
 strKabin = 'Kabin'
+strKabinInfo = 'Kabin Bilgisi'
 strMiktar = 'Miktar'
 strModel_Name = 'Model_Name'
 strSW_Info = 'SW_Info'
@@ -183,7 +185,7 @@ df1 = pd.DataFrame(af_list)
 writer = pd.ExcelWriter(_export_report_name+'.xlsx', engine='xlsxwriter')
 
 #header
-df1.columns = [strTarih,strSasi,strMamul,strSasi110,strBMS56panel,strKabin,strMiktar,strModel_Name,strSW_Info,strUretim_Onayı]
+df1.columns = [strTarih,strSasi,strMamul,strSasi110,strBMS56panel,strKabin,strKabinInfo,strMiktar,strModel_Name,strSW_Info,strUretim_Onayı]
 
 # Write each dataframe to a different worksheet.
 df1.to_excel(writer, sheet_name='onay_durum')
