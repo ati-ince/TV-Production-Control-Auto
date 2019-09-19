@@ -30,7 +30,7 @@ import sys
 
 
 
-_file = '../sası_planı_18.09.2019' #bir ust dizinden almakta....
+_file = '../sası_planı_19.09.2019' #bir ust dizinden almakta....
 _filename = _file +'.xlsx'
 _sheet_name = 'Sıralama'
 
@@ -139,6 +139,7 @@ f.write("### Used with "+ _file+" ###\n")
 f.write("[AFMODELNAME]\n")
 
 af_list = []
+model_name_ini_list = []
 for i in range(len(df[df.columns[0]])):
     _buf_sasi= str(df[df.columns[9]][i]).split(':')[0]
     if _buf_sasi == 'AF':
@@ -161,7 +162,9 @@ for i in range(len(df[df.columns[0]])):
         else: _onay='!Waiting_to_ADD!'
         af_list.append([_tarih,_sasi,_mamul,_sasi110,_bms56panel,_kabin,_kabininfo,_miktar,_model_name,_sw_info,_onay])
         ## write to check data
-        f.write("%s=%s\n" %(_sasi110[:3],_model_name))
+        #f.write("%s=%s\n" %(_sasi110[:3],_model_name))
+        _ini_list_buf=_sasi110[:3]+"="+_model_name
+        model_name_ini_list.append(_ini_list_buf)
 
 strTarih = 'Üretim Tarih'
 strSasi = 'Şasi'
@@ -182,8 +185,16 @@ for i in range(len(af_list)):
  #yazdır son halini, af_list....
 
 # ----------------------------------------------------------------------------------------------
+#get unique model_name_ini_list
+unique_model_name_ini_list = list(set(model_name_ini_list));
+print("### unique model_name_ini_list {0}:{1} ###" .format("_len",len(model_name_ini_list)))
+print("### unique model_name_ini_list {0}:{1} ###" .format("_len",len(unique_model_name_ini_list)))
 # ----------------------------------------------------------------------------------------------
-
+for i in unique_model_name_ini_list:
+    print(i)
+    f.write("%s\n" %(i))
+# ----------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------
 df1 = pd.DataFrame(af_list)
 writer = pd.ExcelWriter(_export_report_name+'.xlsx', engine='xlsxwriter')
 
