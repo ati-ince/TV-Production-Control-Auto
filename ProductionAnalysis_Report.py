@@ -30,7 +30,7 @@ import sys
 
 
 
-_file = '../sası_planı_16.09.2019' #bir ust dizinden almakta....
+_file = '../sası_planı_18.09.2019' #bir ust dizinden almakta....
 _filename = _file +'.xlsx'
 _sheet_name = 'Sıralama'
 
@@ -150,6 +150,9 @@ for i in range(len(df[df.columns[0]])):
         _miktar = str(df[df.columns[11]][i])
         _kabin = str(df[df.columns[12]][i]).split(':')[0]
         _kabininfo = str(df[df.columns[12]][i]).split(':')[-1]#;_kabininfo=_kabininfo.split(" ")[-1]
+        # sometime BMS column empthy... so if oled use this....
+        if _bms56panel == 'nan' and 'OLED' in _kabininfo.upper():
+            _bms56panel = str(df[df.columns[5]][i])  # write tup instead of bms
         _model_name = modelname_create(_bms56panel, _kabin)
         _sw_info = str(sw_model_check(_model_name , sw_model_list))
         _onay = 'OK'
