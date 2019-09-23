@@ -30,10 +30,13 @@ import sys
 
 
 
-_file = '../sası_planı_19.09.2019' #bir ust dizinden almakta....
+_file = '../sası_planı_21.09.2019' #bir ust dizinden almakta....
 _filename = _file +'.xlsx'
 _sheet_name = 'Sıralama'
 
+# the other excel we use for unique_list
+
+_file_sw = '../output_AF' #bir ust dizinden almakta....
 _sheet_model = 'unique_list'
 
 _export_report_name = _file + '-' +  _sheet_model + '-' + 'SW_Model_ONAY_KONTROL'
@@ -102,7 +105,7 @@ def modelname_create(panel, kabin):
     else:
         return 'ERROR_PANEL_NAME'
 # ----------------------------------------------------------------------------------------------
-df_sw = pd.read_excel(_filename, sheet_name=_sheet_model)
+df_sw = pd.read_excel(_file_sw+'.xlsx', sheet_name=_sheet_model)
 
 print("Column headings:")
 print(df_sw.columns)
