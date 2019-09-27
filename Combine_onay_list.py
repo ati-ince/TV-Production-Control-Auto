@@ -4,6 +4,8 @@ import pandas as pd
 from pandas import ExcelWriter
 from pandas import ExcelFile
 
+import numpy as np
+
 import xlsxwriter
 import numpy as np
 import re
@@ -29,12 +31,25 @@ for file in files("../"):
 print(_excel_cellonay_path,'\n',_excel_panellist_path)
 #----------------------------------------------------------------------------------------------
 
-'''
-_filename = 'AF NX panel list 04092019 ver4'
+# // just now ... use only _excel_panellist_path
 
-df = pd.read_excel(_filename + '.xlsx')
+_file = _excel_panellist_path
 
-xls = pd.ExcelFile(_filename + '.xlsx')
+xls = pd.ExcelFile(_file) # // with use panellist getting NX and AF....
 
 print(xls.sheet_names)
-'''
+
+df_panellist = [] #list
+
+k=0
+for i in xls.sheet_names:
+    _buf = pd.read_excel(_file, sheet_name = i) # nex
+    df_panellist.append(_buf)
+
+
+_arr_af = df_panellist[1] #use [1] for AF
+print(_arr_af)
+_arr_af = np.asarray(_arr_af) #array yapısı kullanımı daha koaly durutor...
+#----------------------------------
+print(_arr_af[0])
+print(_arr_af[1])

@@ -9,9 +9,9 @@ import numpy as np
 import re
 
 
-_names = 'panels, 09-04'
+_names = 'panels -AF- 09-25'
 
-df = pd.read_excel('SW-Uygulama, AF, Panel Haftalık Yayın.xlsx', sheet_name=_names)
+df = pd.read_excel('../SW-Uygulama, AF, Panel Haftalık Yayın.xlsx', sheet_name=_names)
 
 print("Column headings:")
 print(df.columns)
@@ -163,7 +163,7 @@ df2 = pd.DataFrame(prior_data_uniq)
 
 
 # Create a Pandas Excel writer using XlsxWriter as the engine.
-writer = pd.ExcelWriter(_names+'.xlsx', engine='xlsxwriter')
+writer = pd.ExcelWriter('../'+_names+'.xlsx', engine='xlsxwriter')
 
 # Write each dataframe to a different worksheet.
 df1.to_excel(writer, sheet_name='total_list')
