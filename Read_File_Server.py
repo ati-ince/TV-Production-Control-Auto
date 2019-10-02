@@ -22,7 +22,3 @@ print(len(lines))
 for i in lines:
     print(i[:-1])
 
-
-
-
-# // \\arcei34v\SOFTWARE\SERI\AF\Model_Names.ini

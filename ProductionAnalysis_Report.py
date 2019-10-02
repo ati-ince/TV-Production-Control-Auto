@@ -30,7 +30,7 @@ import sys
 
 
 
-_file = '../sası_planı_24.09.2019' #bir ust dizinden almakta....
+_file = '../sası_planı_01.10.2019' #bir ust dizinden almakta....
 _filename = _file +'.xlsx'
 _sheet_name = 'Sıralama'
 
@@ -190,7 +190,7 @@ for i in range(len(af_list)):
 print("### model_name_ini_list  before server: " , len(model_name_ini_list))
 
 #----------------------------------------------------------------------------------------------
-'''
+
 # Bu kısımda Serverda yer alan Model_name.ini oku ve ekle... toplanarak ilerlesin...
 _filelink= "\\\\arcei34v\\SOFTWARE\\SERI\\AF\\Model_Names.ini"
 with open(_filelink) as f_server:
@@ -203,12 +203,13 @@ for i in lines_server:
             model_name_ini_list.append(str(i[:-1]))
 
 print("### model_name_ini_list  after  server: " , len(model_name_ini_list))
-'''
+
 # ----------------------------------------------------------------------------------------------
 #get unique model_name_ini_list
 unique_model_name_ini_list = list(set(model_name_ini_list));
 print("### unique model_name_ini_list {0}:{1} ###" .format("_len",len(model_name_ini_list)))
 print("### unique model_name_ini_list {0}:{1} ###" .format("_len",len(unique_model_name_ini_list)))
+unique_model_name_ini_list.sort() #sıralı olsun ismi
 # ----------------------------------------------------------------------------------------------
 for i in unique_model_name_ini_list:
     print(i)
