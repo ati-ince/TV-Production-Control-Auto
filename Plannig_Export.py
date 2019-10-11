@@ -9,7 +9,7 @@ import numpy as np
 import re
 
 
-_names = 'panels -AF- 09-25'
+_names = 'panel_ultimate'
 
 df = pd.read_excel('../SW-Uygulama, AF, Panel Haftalık Yayın.xlsx', sheet_name=_names)
 
