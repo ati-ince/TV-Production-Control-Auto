@@ -9,7 +9,7 @@ import numpy as np
 import re
 
 
-_names = 'panel_ultimate'
+_names = 'panel_ultimate' #kullanılan excell sheet name.....
 
 df = pd.read_excel('../SW-Uygulama, AF, Panel Haftalık Yayın.xlsx', sheet_name=_names)
 
@@ -82,6 +82,7 @@ for i in range(len(df[df.columns[1]])):
         _cabin = str(df[df.columns[4]][i])
         _cab = _cabin.split(";")
         for c in range(len(_cab)):
+            _cab[c]=_cab[c].split(":")[0] #just take first part...
             _cab[c] = str(re.sub(r'\W+', '', _cab[c]))
             _name = "Customer_A_"+ _buf + "_"+_cab[c]+"_0.ini"
             _mn.append(_name)

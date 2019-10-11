@@ -28,9 +28,12 @@ import sys
 #sys.path.append('D:\\#PyProjects\\#modules-libraries-functions\\my-precious-shared')
 #print(sys.path)
 
+_filelink= "\\\\arcei34v\\SOFTWARE\\SERI\\AF\\Model_Names.ini"  #bunu kontrol ederek yeni üretmekte !!!
+# eger server erişimin yoksa aşağıdakini çalıştır...
+#_filelink= "D:\\PyCharm_Kurulum\\Projeler\\Test1\\model_name_ini_yedek\\Model_Names.ini"
 
 
-_file = '../sası_planı_01.10.2019' #bir ust dizinden almakta....
+_file = '../sası_planı_10.10.2019' #bir ust dizinden almakta....
 _filename = _file +'.xlsx'
 _sheet_name = 'Sıralama'
 
