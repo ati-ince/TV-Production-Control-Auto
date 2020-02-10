@@ -28,12 +28,12 @@ import sys
 #sys.path.append('D:\\#PyProjects\\#modules-libraries-functions\\my-precious-shared')
 #print(sys.path)
 
-_filelink= "\\\\arcei34v\\SOFTWARE\\SERI\\AF\\Model_Names.ini"  #bunu kontrol ederek yeni üretmekte !!!
+#_filelink= "\\\\arcei34v\\SOFTWARE\\SERI\\AF\\Model_Names.ini"  #bunu kontrol ederek yeni üretmekte !!!
 # eger server erişimin yoksa aşağıdakini çalıştır...
-#_filelink= "D:\\PyCharm_Kurulum\\Projeler\\Test1\\model_name_ini_yedek\\Model_Names.ini"
+_filelink= "../Model_Names_6Feb.ini"
 
 
-_file = '../sası_planı_10.10.2019' #bir ust dizinden almakta....
+_file = '../sası_planı_7.02.2020' #bir ust dizinden almakta....
 _filename = _file +'.xlsx'
 _sheet_name = 'Sıralama'
 
@@ -195,7 +195,6 @@ print("### model_name_ini_list  before server: " , len(model_name_ini_list))
 #----------------------------------------------------------------------------------------------
 
 # Bu kısımda Serverda yer alan Model_name.ini oku ve ekle... toplanarak ilerlesin...
-_filelink= "\\\\arcei34v\\SOFTWARE\\SERI\\AF\\Model_Names.ini"
 with open(_filelink) as f_server:
     lines_server = f_server.readlines()
 
