@@ -8,7 +8,7 @@ import xlsxwriter
 import numpy as np
 import re
 
-
+_sasi_name="AF"
 _names = 'panel_ultimate' #kullanılan excell sheet name.....
 
 df = pd.read_excel('../SW-Uygulama, AF, Panel Haftalık Yayın.xlsx', sheet_name=_names)
@@ -46,7 +46,7 @@ total_data = []
 prior_data = []
 _buf_prior = []
 for i in range(len(df[df.columns[1]])):
-    if str(re.sub(r'\W+', '', df[df.columns[3]][i]))=="AF":
+    if str(re.sub(r'\W+', '', df[df.columns[3]][i]))==_sasi_name:
         panel_raw = df[df.columns[1]][i]
         panel_clean = re.sub(r'\W+', '', panel_raw)
         panel_clean=panel_clean[4:] ; panel_clean=str(panel_clean).upper()
