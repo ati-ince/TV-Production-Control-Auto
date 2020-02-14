@@ -1,0 +1,63 @@
+#Data Science
+#-------------------------------------------------
+numpy
+pandas
+#SciPy
+#-----
+#ML
+#-------------------------------------------------
+scikit-learn
+#***
+#Keras
+#Keras-Applications==1.0.7
+#KerasModelZoo==0.0.1
+#***
+#tensorflow==1.13.1
+
+#...NLP...
+nltk
+#!#spaCy==2.1.0 #nedense hata vermekte bakacaz...
+#Gensim==3.7.3
+#stanfordnlp==0.2.0
+#Polyglot==16.7.4
+#Pattern==3.6
+#TextBlob==1.15.3
+#PyNLPl==1.2.9
+##API ##
+#textrazor == 1.4.0 #cok zengın degıla ama aradıgımı saglamadıgı ıcın kullanamaım, kullanımı cok kolay...
+#pyrxnlp ==0.1.5.3 #kullanımı kolay ama algorıtmaları tırt... ... cok basarılı degıl open source ıle aynı kalıtede ıdı...
+#algorithmia==1.1.4 #guzel apiler mevcut.... kullandım hostur...
+textdistance
+#-------------------------------------------------
+#Visulasion
+#-------------------------------------------------
+#matplotlib==3.0.3
+#-------------------------------------------------
+#Jupyter Notebook
+#jupyter==1.0.0
+#-------------------------------------------------
+#Google Library Tech
+#pytrends==4.4.0 #Google unofficial trends
+#geocoder==1.38.1 #google unofficial geo library
+#-------------------------------------------------
+#Web Scrapping
+selenium
+beautifulsoup4
+requests #html for human
+feedparser #Python - Reading RSS feed
+#DB
+mysql-connector
+#SSH
+#paramiko==2.4.2
+#---------------------------
+#Miscellaneous
+#pynput==1.4.2 #mouse control
+#--------------------------------------------
+#V2 yeni eklenenler........................
+###HTML PARSING AND CONTENT EXTRACTING
+#.....
+newspaper3k
+#--------------------------------------------
+#--------------------------------------------
+
+
