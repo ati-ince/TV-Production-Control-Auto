@@ -30,10 +30,10 @@ import sys
 
 #_filelink= "\\\\arcei34v\\SOFTWARE\\SERI\\AF\\Model_Names.ini"  #bunu kontrol ederek yeni üretmekte !!!
 # eger server erişimin yoksa aşağıdakini çalıştır...
-_filelink= "../Model_Names_6Feb.ini"
+_filelink= "../Model_Names_Feb7.ini"
 
 
-_file = '../sası_planı_7.02.2020' #bir ust dizinden almakta....
+_file = '../sası_planı_10_02_2020_v2' #bir ust dizinden almakta....
 _filename = _file +'.xlsx'
 _sheet_name = 'Sıralama'
 
